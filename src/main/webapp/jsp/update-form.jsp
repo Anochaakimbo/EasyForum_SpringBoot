@@ -86,7 +86,7 @@
             <input type="submit" value="Update">
         </form>
 
-        <a href="/forum">Cancel</a>
+        <a href="/forumDetail/${forum.id}">Cancel</a>
     </div>
 </body>
 </html>

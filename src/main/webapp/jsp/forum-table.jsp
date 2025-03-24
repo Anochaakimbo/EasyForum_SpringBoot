@@ -117,8 +117,6 @@ a:hover {
 				<span>❤️ ${m.love} | ✍️ ${m.author} | 📅 ${m.date}</span><br>
 				<div class="action-links">
 					<a href="/loveAdd/${m.id}">Love</a>
-					<a href="/deleteForum/${m.id}" style="color: red;">Delete</a>
-					<a href="/editForum/${m.id}" style="color: orange;">Update</a>
 				</div>
 			</p>
 		</c:forEach>
