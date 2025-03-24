@@ -59,7 +59,7 @@ DATABASE_NAME=javaweb_ch12
 ```
 
 <h1>Create Your Spring JPA </h1>
-# Create Your Spring JPA
+
 [Visit Spring Initializr](https://start.spring.io)
 
 
