@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.Comment;
+import com.example.demo.model.CommentInterfaceRepository;
 import com.example.demo.model.Forum;
 import com.example.demo.model.ForumInterfaceRepository;
 
@@ -32,25 +35,39 @@ import com.example.demo.model.ForumInterfaceRepository;
 public class ForumController {
 	@Autowired
 	ForumInterfaceRepository repo;
+	@Autowired
+	CommentInterfaceRepository commentRepo; // เพิ่ม Repository ของ Comment
 	
 	@GetMapping("/forum")
 	public String getForumList(Model model) {
-		List<Forum> forumList = (List<Forum>) repo.findAll();
-		model.addAttribute("allForums", forumList);
-		return "/forum-table";
+	    List<Forum> forumList = (List<Forum>) repo.findAll();
+	    List<Comment> commentList = (List<Comment>) commentRepo.findAll();
+
+	    // นับคอมเมนต์ของแต่ละโพสต์
+	    Map<Integer, Long> commentCountMap = commentList.stream()
+	        .collect(Collectors.groupingBy(comment -> comment.getForum().getId(), Collectors.counting()));
+
+	    model.addAttribute("allForums", forumList);
+	    model.addAttribute("commentCountMap", commentCountMap);
+	    return "/forum-table";
 	}
+
 	
 	@GetMapping("/forumDetail/{id}")
 	public String getForumDetailById(@PathVariable Integer id, Model model) {
-		Forum forum = repo.findById(id).orElse(null);
-		if (forum != null) {
-			model.addAttribute("forum", forum);
-			return "/forum-detail"; // Return edit form view
-		}
-		return "redirect:/forum";
-		
+	    Forum forum = repo.findById(id).orElse(null);
+	    
+	    if (forum != null) {
+	        List<Comment> comments = forum.getComments();
+	        model.addAttribute("forum", forum);
+	        model.addAttribute("comments", comments);
+	        
+	        return "/forum-detail";
+	    }
+	    return "redirect:/forum";
 	}
-	
+
+
 	@GetMapping("/searchForum")
 	public String searchForum(@RequestParam("keyword") String keyword, Model model) {
 	    List<Forum> searchResults;
@@ -117,4 +134,22 @@ public class ForumController {
 		}
 		return "redirect:/forum";
 	}
+	
+	
+
+	@PostMapping("/addComment/{forumId}")
+	public String addComment(@PathVariable Integer forumId, 
+	                         @RequestParam("name") String name, 
+	                         @RequestParam("text") String text) {
+		Forum forum = repo.findById(forumId).orElse(null);
+		if (forum != null) {
+			Comment comment = new Comment();
+			comment.setForum(forum);
+			comment.setName(name);
+			comment.setText(text);
+			commentRepo.save(comment);
+		}
+		return "redirect:/forumDetail/" + forumId;
+	}
+
 }

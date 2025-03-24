@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,30 +103,38 @@ a:hover {
 		<h1>What do you think?</h1>
 
 		<form action="/searchForum" method="GET">
-			<input type="text" id="keyword" name="keyword" placeholder="Search forums...">
-			<input type="submit" value="Search">
+			<input type="text" id="keyword" name="keyword"
+				placeholder="Search forums..."> <input type="submit"
+				value="Search">
 		</form>
 
 		<c:if test="${param.keyword != null}">
-			<p>ผลการค้นหาสำหรับ: "${param.keyword}" (${allForums.size()} รายการ)
-				<a href="/forum">แสดงทั้งหมด</a>
+			<p>
+				ผลการค้นหาสำหรับ: "${param.keyword}" (${allForums.size()} รายการ) <a
+					href="/forum">แสดงทั้งหมด</a>
 			</p>
 		</c:if>
 
 		<c:forEach items="${allForums}" var="m">
 			<p>
 				<a href="/forumDetail/${m.id}"><strong>${m.detail}</strong></a><br>
-				<span>❤️ ${m.love} | ✍️ ${m.author} | 📅 ${m.date}</span><br>
-				<div class="action-links">
-					<a href="/loveAdd/${m.id}">Love</a>
-				</div>
+				<span>❤️ ${m.love} | ✍️ ${m.author} | 📅 <fmt:formatDate
+						value="${m.date}" pattern="MMMM d yyyy, h:mm a" />
+				</span><br> <span>💬 ${commentCountMap[m.id] != null ? commentCountMap[m.id] : 0}
+					Comments</span><br>
+			<div class="action-links">
+				<a href="/loveAdd/${m.id}">Love</a>
+			</div>
 			</p>
 		</c:forEach>
 
+
+
 		<form action="/insertForum" method="GET" class="new-post-form">
-			<input type="text" id="detail" name="detail" placeholder="What on your mind"><br>
-			<input type="text" id="author" name="author" placeholder="Writer"><br>
-			<input type="submit" value="Submit">
+			<input type="text" id="detail" name="detail"
+				placeholder="What on your mind"><br> <input type="text"
+				id="author" name="author" placeholder="Writer"><br> <input
+				type="submit" value="Submit">
 		</form>
 	</div>
 </body>
