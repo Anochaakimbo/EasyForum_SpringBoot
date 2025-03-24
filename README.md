@@ -30,9 +30,9 @@ spring.application.name=final
 
 spring.mvc.view.prefix=/jsp/
 spring.mvc.view.suffix=.jsp
-spring.datasource.url = jdbc:mysql://127.0.0.1:3306/anoch_blueshop?characterEncoding=utf-8
-spring.datasource.username = root
-spring.datasource.password = 
+spring.datasource.url = jdbc:mysql://${DATABASE_SERVER}/${DATABASE_NAME}?characterEncoding=utf-8
+spring.datasource.username = ${DATABASE_USER}
+spring.datasource.password = ${DATABASE_PASSWORD} = 
 spring.jpa.show-sql = true
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.hibernate.ddl-auto = update
