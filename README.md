@@ -1,3 +1,4 @@
+Create Your Spring JPA [Spring Initializr](https://start.spring.io) 
 <h1>Dependency</h1>
 
 ```
@@ -57,7 +58,7 @@ DATABASE_PASSWORD=sc362102
 DATABASE_NAME=javaweb_ch12
 ```
 
-<h1>Create Your Spring JPA [Visit Spring Initializr](https://start.spring.io) </h1> 
+
 
 
 
