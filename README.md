@@ -45,3 +45,13 @@ spring.http.encoding.enabled=true
 
 spring.http.encoding.force=true
 ```
+<h1>Application Env</h1>
+
+```
+สร้างไฟล์ .env ใน directory resources (ใน Eclipse จะไม่แสดงไฟล์ .env)
+ประกาศตัวแปรที่จะเก็บข้อมูล
+DATABASE_SERVER=10.199.22.999999:3306
+DATABASE_USER=root
+DATABASE_PASSWORD=sc362102
+DATABASE_NAME=javaweb_ch12
+```
