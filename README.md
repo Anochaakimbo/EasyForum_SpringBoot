@@ -48,7 +48,6 @@ spring.http.encoding.force=true
 <h1>Application Env</h1>
 
 ```
-
 สร้างไฟล์ .env ใน directory resources (ใน Eclipse จะไม่แสดงไฟล์ .env)
 ถ้าอยากแก้ให้ไปแก้ที่ Root directory ของเครื่อง
 ประกาศตัวแปรที่จะเก็บข้อมูล
