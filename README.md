@@ -1,4 +1,4 @@
-<h1>NOTE : <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> MUST INCLUDE IN JSP</h1>
+NOTE : <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> MUST INCLUDE IN JSP
 
 
 Create Your Spring JPA [Spring Initializr](https://start.spring.io) 
